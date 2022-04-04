@@ -19,8 +19,8 @@ export class AuthSystem extends SystemPlugin {
   }
 
   async init() {
-    const { data: response } = await this.#interactionSystem.GETRequest('/api/isLoggedIn');
-    if (response.isLoggedIn) {
+    const { data: response } = await this.#interactionSystem.GETRequest('/auth/isloggedin');
+    if (response.status) {
       this.#isLogged = true;
       return;
     }
@@ -55,7 +55,7 @@ export class AuthSystem extends SystemPlugin {
   }
 
   async authorize(login, password) {
-    let response = await this.#interactionSystem.POSTRequest('/api/login', {
+    let response = await this.#interactionSystem.POSTRequest('/auth/login', {
       login,
       password,
     });
@@ -70,7 +70,7 @@ export class AuthSystem extends SystemPlugin {
   }
 
   async logout() {
-    await this.#interactionSystem.POSTRequest('/api/logout', {});
+    await this.#interactionSystem.DELETERequest('/auth/logout');
     this.#isLogged = false;
   }
 }
