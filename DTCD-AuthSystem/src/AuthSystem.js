@@ -72,5 +72,6 @@ export class AuthSystem extends SystemPlugin {
   async logout() {
     await this.#interactionSystem.DELETERequest('/auth/logout');
     this.#isLogged = false;
+    Application.getSystem('RouteSystem', '0.1.0').navigate('/login');
   }
 }
