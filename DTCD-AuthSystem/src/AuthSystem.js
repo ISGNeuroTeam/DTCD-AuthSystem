@@ -61,6 +61,8 @@ export class AuthSystem extends SystemPlugin {
     });
 
     if (response.status === 200) {
+      this.#logSystem.info(`Success authorize with ${login} account`);
+      this.#logSystem.debug(`Success authorize with ${login} account`);
       await this.#logSystem.setUsername();
       this.#isLogged = true;
       return this.#isLogged;
@@ -72,6 +74,8 @@ export class AuthSystem extends SystemPlugin {
 
   async logout() {
     await this.#interactionSystem.DELETERequest('/auth/logout');
+    this.#logSystem.info(`Success logout`);
+    this.#logSystem.debug(`Success logout`);
     await this.#logSystem.setUsername();
     this.#isLogged = false;
     Application.getSystem('RouteSystem', '0.1.0').navigate('/login');
