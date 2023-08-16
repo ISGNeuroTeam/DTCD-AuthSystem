@@ -61,6 +61,7 @@ export class AuthSystem extends SystemPlugin {
     });
 
     if (response.status === 200) {
+      await this.#logSystem.setUsername();
       this.#isLogged = true;
       return this.#isLogged;
     }
@@ -71,6 +72,7 @@ export class AuthSystem extends SystemPlugin {
 
   async logout() {
     await this.#interactionSystem.DELETERequest('/auth/logout');
+    await this.#logSystem.setUsername();
     this.#isLogged = false;
     Application.getSystem('RouteSystem', '0.1.0').navigate('/login');
   }
